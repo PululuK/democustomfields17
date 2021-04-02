@@ -107,19 +107,20 @@ class Democustomfields17 extends Module
     public function hookActionAdminProductsControllerSaveAfter($params)
     {
         $data = Tools::getValue($this->name);
-                
+        $idProduct = (int) Tools::getValue('id_product');
+                        
         if (!is_array($data)
-        || empty($data[$this->getModuleDatasCommeFromID()])
-        || ! $data[$this->getModuleDatasCommeFromID()]) {
+        || !isset($data[$this->getModuleDatasCommeFromID()])) { // Make sure datas come form this form
             return;
         }
         
-        $productObject = new Product((int)$params['id_product']);
+        $productObject = new Product($idProduct);
 
         if (!Validate::isLoadedObject($productObject)) {
             return;
         }
         
+        die(var_dump($data));
         
         // TODO : play with $data and $productObject ;)
     }
@@ -158,6 +159,8 @@ class Democustomfields17 extends Module
     {
         $productFieldsDatas = [];
         $idProduct = $params['id_product'];
+        
+        //Todo : load product datas :)
 
         $form = $this->getProductAdminHookForm($hookForm, $productFieldsDatas);
         
@@ -194,6 +197,6 @@ class Democustomfields17 extends Module
     
     public function getModuleDatasCommeFromID()
     {
-        return 'fields_from_'.$module->name.'_'.$module->id ;
+        return 'fields_from_'.$this->name.'_'.$this->id ;
     }
 }
