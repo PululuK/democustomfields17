@@ -1,0 +1,23 @@
+{
+    "name": "pululuk/democustomfields17",
+    "description": "Demo products custom fields prestashop 1.7",
+    "autoload": {
+        "psr-4": {
+            "PrestaShop\\Module\\Democustomfields17\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "prepend-autoloader": false
+    },
+    "type": "prestashop-module",
+    "license": "MIT",
+    "authors": [{
+        "name": "PululuK",
+        "email": "pululuandre@hotmail.com"
+    }],
+    "require": {
+        "php": ">=5.6.0",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    }
+}
