@@ -89,6 +89,9 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
     }
 ```
 
+![image](https://user-images.githubusercontent.com/16455155/113463753-077a7280-9428-11eb-856f-dc5e93002da7.png)
+
+
 4 - Process data after product form submit
 
 See module `hookActionAdminProductsControllerSaveAfter` method called after performing save/update in product controller. 
