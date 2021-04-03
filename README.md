@@ -54,6 +54,9 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
     use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+    use PrestaShopBundle\Form\Admin\Type\TranslatableType;
+    use PrestaShopBundle\Form\Admin\Type\SwitchType;
     use Module;
 
     class DisplayAdminProductsMainStepLeftColumnMiddleForm implements HookFormInterface
@@ -61,13 +64,25 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
         public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
         {
             $builder
-                ->add('displayadminproductsmainstepLeftcolumnmiddleform', TextType::class, array(
-                        'label' => $module->l('DisplayAdminProductsMainStepLeftColumnMiddleForm'),
-                        'attr' => array(
-                            'class' => 'my-custom-class',
-                            'data-hex'=> 'true'
-                        )
-                ));
+                ->add('displayadminproductsmainstepLeftcolumnmiddleform', TextType::class, [
+                     'label' => $module->l('DisplayAdminProductsMainStepLeftColumnMiddleForm'),
+                     'attr' => [
+                        'class' => 'my-custom-class',
+                        'data-hex'=> 'true'
+                      ]
+                ])
+                ->add('description', TranslatableType::class, [
+                    // we'll have text area that is translatable
+                   'type' => TextareaType::class,
+                ])
+                ->add('switch', SwitchType::class, [
+                    // Customized choices with ON/OFF instead of Yes/No
+                   'choices' => [
+                     'ON' => true,
+                     'OFF' => false,
+                   ],
+               ]);
+                
                     
             return $builder;
         }
