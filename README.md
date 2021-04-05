@@ -1,5 +1,9 @@
 # democustomfields17
-Demo products custom fields prestashop 1.7
+
+This module is an architectural skeleton for module developers, who want to add custom fields in the product page on the backoffice.
+
+It's a base, you have to adapt it to your needs ... This will save you a lot of time!
+
 
 ## Current produt hooks
 

@@ -159,8 +159,13 @@ class Democustomfields17 extends Module
     {
         $productFieldsDatas = [];
         $idProduct = $params['id_product'];
-        
-        //Todo : load product datas :)
+
+        /* Todo : You have $idProduct ... load product datas :)
+         *
+         *  1 - My data system get product custom fields values by $idProduct
+         *  2 - $productFieldsDatas['My_product_customfield_name'] = 'My_product_custom_field_value';
+         *
+         * */
 
         $form = $this->getProductAdminHookForm($hookForm, $productFieldsDatas);
         
