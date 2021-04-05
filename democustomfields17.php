@@ -194,7 +194,7 @@ class Democustomfields17 extends Module
         ];
     }
     
-    private function getLocales()
+    public function getLocales()
     {
         $sfContainer = $this->symfonyContainerInstance();
         return $sfContainer->get('prestashop.adapter.data_provider.language')->getLanguages();
