@@ -185,7 +185,7 @@ class Democustomfields17 extends Module
             'displayAdminProductsOptionsStepBottom',
             'displayAdminProductsSeoStepBottom',
             'actionAdminProductsControllerSaveAfter',
-            'actionObjectProductDeleteAfter ',
+            'actionObjectProductDeleteAfter',
         ];
     }
     
