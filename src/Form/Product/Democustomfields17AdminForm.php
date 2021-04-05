@@ -24,7 +24,7 @@ class Democustomfields17AdminForm extends CommonAbstractType
         $hookForm
             ->addCustomFields($builder, $module)
             ->add(
-                $module->getModuleDatasCommeFromID(), // use dto check if datas comme from this module form
+                $module->getModuleFormDatasID(), // used to check if datas come from Admin Product form
                 'Symfony\Component\Form\Extension\Core\Type\HiddenType',
                 ['data' => '1']
             );

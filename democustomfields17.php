@@ -110,7 +110,7 @@ class Democustomfields17 extends Module
         $idProduct = (int) Tools::getValue('id_product');
                         
         if (!is_array($data)
-        || !isset($data[$this->getModuleDatasCommeFromID()])) { // Make sure datas come form this form
+        || !isset($data[$this->getModuleFormDatasID()])) { // Make sure datas come form this form
             return;
         }
         
@@ -195,7 +195,7 @@ class Democustomfields17 extends Module
         return $sfContainer->get('prestashop.adapter.data_provider.language')->getLanguages();
     }
     
-    public function getModuleDatasCommeFromID()
+    public function getModuleFormDatasID()
     {
         return 'fields_from_'.$this->name.'_'.$this->id ;
     }
