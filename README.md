@@ -141,3 +141,78 @@ array(10) {
 ```
 
 So you can play with that :) ... Persist your data, update other systems, send notifications etc etc !
+
+
+## Fields types exemples :)
+
+For more informations see Types references here : https://devdocs.prestashop.com/1.7/development/components/form/types-reference/
+
+> NOTE : Be sure that the type of fields you want to use exist in your version of prestashop.
+
+
+### Code 
+
+See https://github.com/PululuK/democustomfields17/blob/main/src/Form/Product/Hooks/DisplayAdminProductsExtraForm.php
+
+```php
+<?php
+        
+    namespace PrestaShop\Module\Democustomfields17\Form\Product\Hooks;
+
+    use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use PrestaShopBundle\Form\Admin\Type\CategoryChoiceTreeType;
+    use PrestaShopBundle\Form\Admin\Type\ChangePasswordType;
+    use PrestaShopBundle\Form\Admin\Type\CountryChoiceType;
+    use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+    use PrestaShopBundle\Form\Admin\Type\TranslatableType;
+    use PrestaShopBundle\Form\Admin\Type\SwitchType;
+    use PrestaShopBundle\Form\Admin\Type\TextWithLengthCounterType;
+    use Module;
+
+    class DisplayAdminProductsExtraForm implements HookFormInterface
+    {
+        public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
+        {
+            $builder
+                ->add('my_text_type_field_exemple', TextType::class, [
+                        'label' => $module->l('My simple text type'),
+                        'attr' => array(
+                            'class' => 'my-custom-class',
+                            'data-hex'=> 'true'
+                        )
+                ])
+                ->add('my_switch_type_field_exemple', SwitchType::class, [
+                    'label' => $module->l('My switch type'),
+                    'choices' => [
+                        $module->l('ON') => true,
+                        $module->l('OFF') => false,
+                    ],
+                ])
+                ->add('my_translatable_type_field_exemple', TranslatableType::class, [
+                    // we'll have text area that is translatable
+                    'label' => $module->l('My translatable type'),
+                    'type' => TextareaType::class,
+                    'locales' => $module->getLocales()
+                ])
+                ->add('meta_title', TextWithLengthCounterType::class, [
+                    'label' => $module->l('My text with length counter type'),
+                    'max_length' => 255,
+                ])
+                ->add('category_id', CategoryChoiceTreeType::class, [
+                    'label' => $module->l('My categorytree type'),
+                    'disabled_values' => [4, 5], // Recommantion : Use something look $module->getDisabledCategoriesIds()
+                ]);
+
+            return $builder;
+        }
+    }
+```
+
+### Result
+
+BO > Product 
+
+![image](https://user-images.githubusercontent.com/16455155/113608216-8e0e9a00-964a-11eb-98f7-40da7de66953.png)
+
