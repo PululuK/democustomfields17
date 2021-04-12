@@ -13,15 +13,15 @@ class Democustomfields17AdminForm extends CommonAbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->addFieldsByHook($options['hookFormBuilder'], $builder, $options['module']);
+        $this->addFieldsByHook($options['hookFieldsBuilder'], $builder, $options['module']);
     }
     
     private function addFieldsByHook(
-        HookFieldsBuilderInterface $hookForm,
+        HookFieldsBuilderInterface $hookFieldsBuilder,
         FormBuilderInterface $builder,
         Module $module
     ) {
-        $hookForm
+        $hookFieldsBuilder
             ->addCustomFields($builder, $module)
             ->add(
                 $module->getModuleFormDatasID(), // used to check if datas come from Admin Product form
@@ -33,7 +33,7 @@ class Democustomfields17AdminForm extends CommonAbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'hookFormBuilder' => null,
+            'hookFieldsBuilder' => null,
             'module' => null,
             'allow_extra_fields' => true
         ));

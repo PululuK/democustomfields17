@@ -44,7 +44,7 @@ Imagine you want to add a new field in backoffice product page in left column.
 ```php
 public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params)
 {
-    return $this->getProductAdminHookContent((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
+    return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
 }
 ```
  

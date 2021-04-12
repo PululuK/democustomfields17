@@ -61,47 +61,47 @@ class Democustomfields17 extends Module
     
     public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
     }
     
     public function hookDisplayAdminProductsExtra($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsExtraForm()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsExtraForm()), $params);
     }
     
     public function hookDisplayAdminProductsMainStepLeftColumnBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsMainStepLeftColumnBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnBottom()), $params);
     }
     
     public function hookDisplayAdminProductsMainStepRightColumnBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsMainStepRightColumnBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepRightColumnBottom()), $params);
     }
     
     public function hookDisplayAdminProductsQuantitiesStepBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsQuantitiesStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsQuantitiesStepBottom()), $params);
     }
     
     public function hookDisplayAdminProductsPriceStepBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsPriceStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsPriceStepBottom()), $params);
     }
     
     public function hookDisplayAdminProductsOptionsStepBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsOptionsStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsOptionsStepBottom()), $params);
     }
     
     public function hookDisplayAdminProductsOptionsStepTop($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsOptionsStepTop()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsOptionsStepTop()), $params);
     }
     
     public function hookDisplayAdminProductsSeoStepBottom($params)
     {
-        return $this->getProductAdminHookContent((new DisplayAdminProductsSeoStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new DisplayAdminProductsSeoStepBottom()), $params);
     }
     
     public function hookActionAdminProductsControllerSaveAfter($params)
@@ -136,12 +136,12 @@ class Democustomfields17 extends Module
         return $this->symfonyInstance;
     }
     
-    private function getProductAdminHookForm(HookFieldsBuilderInterface $hookForm, array $datas)
+    private function getProductAdminHookFieldsDefinition(HookFieldsBuilderInterface $hookFieldsBuilder, array $datas)
     {
         $formFactory = $this->symfonyContainerInstance()->get('form.factory');
         $options = [
             'csrf_protection' => false,
-            'hookFormBuilder' => $hookForm,
+            'hookFieldsBuilder' => $hookFieldsBuilder,
             'module' => $this,
         ];
 
@@ -155,7 +155,7 @@ class Democustomfields17 extends Module
         return $form;
     }
     
-    private function getProductAdminHookContent(HookFieldsBuilderInterface $hookForm, array $params)
+    private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
     {
         $productFieldsDatas = [];
         $idProduct = $params['id_product'];
@@ -167,7 +167,7 @@ class Democustomfields17 extends Module
          *
          * */
 
-        $form = $this->getProductAdminHookForm($hookForm, $productFieldsDatas);
+        $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsDatas);
         
         return $this->symfonyContainerInstance()
             ->get('twig')
