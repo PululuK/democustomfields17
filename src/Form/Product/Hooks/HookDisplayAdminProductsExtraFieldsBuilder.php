@@ -14,11 +14,11 @@
     use PrestaShopBundle\Form\Admin\Type\TextWithLengthCounterType;
     use Module;
 
-    class DisplayAdminProductsExtraForm implements HookFieldsBuilderInterface
+    class HookDisplayAdminProductsExtraFieldsBuilder implements HookFieldsBuilderInterface
     {
-        public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
+        public function addFields(FormBuilderInterface $adminFormBuilder, Module $module) :FormBuilderInterface
         {
-            $builder
+            $adminFormBuilder
                 ->add('my_text_type_field_exemple', TextType::class, [
                         'label' => $module->l('My simple text type'),
                         'attr' => array(
@@ -48,6 +48,6 @@
                     'disabled_values' => [4, 5], // Recommantion : Use something look $module->getDisabledCategoriesIds()
                 ]);
 
-            return $builder;
+            return $adminFormBuilder;
         }
     }

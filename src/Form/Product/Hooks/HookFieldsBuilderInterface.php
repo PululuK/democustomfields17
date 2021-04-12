@@ -2,10 +2,10 @@
     
     namespace PrestaShop\Module\Democustomfields17\Form\Product\Hooks;
 
-    use Symfony\Component\Form\HookFieldsBuilderInterface;
+    use Symfony\Component\Form\FormBuilderInterface;
     use Module;
     
     interface HookFieldsBuilderInterface
     {
-        public function addCustomFields(FormBuilderInterface $builder, Module $module) : FormBuilderInterface;
+        public function addFields(FormBuilderInterface $adminFormBuilder, Module $module) : FormBuilderInterface;
     }

@@ -7,15 +7,15 @@ if (!defined('_PS_VERSION_')) {
 require_once __DIR__.'/vendor/autoload.php';
 
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsMainStepLeftColumnMiddleForm;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsExtraForm;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsMainStepLeftColumnBottom;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsMainStepRightColumnBottom;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsQuantitiesStepBottom;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsPriceStepBottom;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsOptionsStepTop;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsOptionsStepBottom;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsSeoStepBottom;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsExtraFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepLeftColumnBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepRightColumnBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsQuantitiesStepBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsPriceStepBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsOptionsStepTopFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsOptionsStepBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsSeoStepBottomFieldsBuilder;
 use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 
 class Democustomfields17 extends Module
@@ -61,47 +61,47 @@ class Democustomfields17 extends Module
     
     public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsExtra($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsExtraForm()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsExtraFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsMainStepLeftColumnBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepLeftColumnBottomFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsMainStepRightColumnBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepRightColumnBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepRightColumnBottomFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsQuantitiesStepBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsQuantitiesStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsQuantitiesStepBottomFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsPriceStepBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsPriceStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsPriceStepBottomFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsOptionsStepBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsOptionsStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsOptionsStepBottomFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsOptionsStepTop($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsOptionsStepTop()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsOptionsStepTopFieldsBuilder()), $params);
     }
     
     public function hookDisplayAdminProductsSeoStepBottom($params)
     {
-        return $this->displayProductAdminHookFields((new DisplayAdminProductsSeoStepBottom()), $params);
+        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsSeoStepBottomFieldsBuilder()), $params);
     }
     
     public function hookActionAdminProductsControllerSaveAfter($params)

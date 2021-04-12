@@ -11,18 +11,18 @@ use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInt
 
 class Democustomfields17AdminForm extends CommonAbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $adminFormBuilder, array $options)
     {
-        $this->addFieldsByHook($options['hookFieldsBuilder'], $builder, $options['module']);
+        $this->addFieldsByHook($options['hookFieldsBuilder'], $adminFormBuilder, $options['module']);
     }
     
     private function addFieldsByHook(
         HookFieldsBuilderInterface $hookFieldsBuilder,
-        FormBuilderInterface $builder,
+        FormBuilderInterface $adminFormBuilder,
         Module $module
     ) {
         $hookFieldsBuilder
-            ->addCustomFields($builder, $module)
+            ->addFields($adminFormBuilder, $module)
             ->add(
                 $module->getModuleFormDatasID(), // used to check if datas come from Admin Product form
                 'Symfony\Component\Form\Extension\Core\Type\HiddenType',

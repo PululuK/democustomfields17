@@ -7,19 +7,19 @@
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Module;
 
-    class DisplayAdminProductsMainStepLeftColumnBottom implements HookFieldsBuilderInterface
+    class HookDisplayAdminProductsSeoStepBottomFieldsBuilder implements HookFieldsBuilderInterface
     {
-        public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
+        public function addFields(FormBuilderInterface $adminFormBuilder, Module $module) :FormBuilderInterface
         {
-            $builder
-                ->add('displayadminproductsmainstepleftcolumnbottom', TextType::class, array(
-                        'label' => $module->l('DisplayAdminProductsMainStepLeftColumnBottom'),
+            $adminFormBuilder
+                ->add('displayadminproductsseostepbottom', TextType::class, array(
+                        'label' => $module->l('HookDisplayAdminProductsSeoStepBottomFieldsBuilder'),
                         'attr' => array(
                             'class' => 'my-custom-class',
                             'data-hex'=> 'true'
                         )
                 ));
                     
-            return $builder;
+            return $adminFormBuilder;
         }
     }

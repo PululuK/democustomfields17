@@ -39,12 +39,12 @@ Imagine you want to add a new field in backoffice product page in left column.
 1 - Identify the hook. In our case will be
  `DisplayAdminProductsMainStepLeftColumnMiddle` ([See hooks list](https://devdocs.prestashop.com/1.7/modules/concepts/hooks/list-of-hooks/#full-list))
 
-2 - Go to https://github.com/PululuK/democustomfields17/blob/main/democustomfields17.php and see the hook form called in the hook method, in this case is `DisplayAdminProductsMainStepLeftColumnMiddleForm`
+2 - Go to https://github.com/PululuK/democustomfields17/blob/main/democustomfields17.php and see the hook form called in the hook method, in this case is `HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder`
 
 ```php
 public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params)
 {
-    return $this->displayProductAdminHookFields((new DisplayAdminProductsMainStepLeftColumnMiddleForm()), $params);
+    return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder()), $params);
 }
 ```
  
@@ -63,13 +63,13 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
     use PrestaShopBundle\Form\Admin\Type\SwitchType;
     use Module;
 
-    class DisplayAdminProductsMainStepLeftColumnMiddleForm implements HookFieldsBuilderInterface
+    class HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder implements HookFieldsBuilderInterface
     {
-        public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
+        public function addFields(FormBuilderInterface $adminFormBuilder, Module $module) :FormBuilderInterface
         {
-            $builder
+            $adminFormBuilder
                 ->add('displayadminproductsmainstepLeftcolumnmiddleform', TextType::class, [
-                     'label' => $module->l('DisplayAdminProductsMainStepLeftColumnMiddleForm'),
+                     'label' => $module->l('HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder'),
                      'attr' => [
                         'class' => 'my-custom-class',
                         'data-hex'=> 'true'
@@ -88,7 +88,7 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
                ]);
                 
                     
-            return $builder;
+            return $adminFormBuilder;
         }
     }
 ```
@@ -171,11 +171,11 @@ See https://github.com/PululuK/democustomfields17/blob/main/src/Form/Product/Hoo
     use PrestaShopBundle\Form\Admin\Type\TextWithLengthCounterType;
     use Module;
 
-    class DisplayAdminProductsExtraForm implements HookFieldsBuilderInterface
+    class HookDisplayAdminProductsExtraFieldsBuilder implements HookFieldsBuilderInterface
     {
-        public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
+        public function addFields(FormBuilderInterface $adminFormBuilder, Module $module) :FormBuilderInterface
         {
-            $builder
+            $adminFormBuilder
                 ->add('my_text_type_field_exemple', TextType::class, [
                         'label' => $module->l('My simple text type'),
                         'attr' => array(
@@ -205,9 +205,10 @@ See https://github.com/PululuK/democustomfields17/blob/main/src/Form/Product/Hoo
                     'disabled_values' => [4, 5], // Recommantion : Use something look $module->getDisabledCategoriesIds()
                 ]);
 
-            return $builder;
+            return $adminFormBuilder;
         }
     }
+
 ```
 
 ### Result
