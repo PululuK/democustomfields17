@@ -55,7 +55,7 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
         
     namespace PrestaShop\Module\Democustomfields17\Form\Product\Hooks;
 
-    use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
+    use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -63,7 +63,7 @@ See Types references here : https://devdocs.prestashop.com/1.7/development/compo
     use PrestaShopBundle\Form\Admin\Type\SwitchType;
     use Module;
 
-    class DisplayAdminProductsMainStepLeftColumnMiddleForm implements HookFormInterface
+    class DisplayAdminProductsMainStepLeftColumnMiddleForm implements HookFieldsBuilderInterface
     {
         public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
         {
@@ -159,7 +159,7 @@ See https://github.com/PululuK/democustomfields17/blob/main/src/Form/Product/Hoo
         
     namespace PrestaShop\Module\Democustomfields17\Form\Product\Hooks;
 
-    use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
+    use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use PrestaShopBundle\Form\Admin\Type\CategoryChoiceTreeType;
@@ -171,7 +171,7 @@ See https://github.com/PululuK/democustomfields17/blob/main/src/Form/Product/Hoo
     use PrestaShopBundle\Form\Admin\Type\TextWithLengthCounterType;
     use Module;
 
-    class DisplayAdminProductsExtraForm implements HookFormInterface
+    class DisplayAdminProductsExtraForm implements HookFieldsBuilderInterface
     {
         public function addCustomFields(FormBuilderInterface $builder, Module $module) :FormBuilderInterface
         {

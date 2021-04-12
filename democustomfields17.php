@@ -6,7 +6,7 @@ if (!defined('_PS_VERSION_')) {
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsMainStepLeftColumnMiddleForm;
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsExtraForm;
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\DisplayAdminProductsMainStepLeftColumnBottom;
@@ -136,7 +136,7 @@ class Democustomfields17 extends Module
         return $this->symfonyInstance;
     }
     
-    private function getProductAdminHookForm(HookFormInterface $hookForm, array $datas)
+    private function getProductAdminHookForm(HookFieldsBuilderInterface $hookForm, array $datas)
     {
         $formFactory = $this->symfonyContainerInstance()->get('form.factory');
         $options = [
@@ -155,7 +155,7 @@ class Democustomfields17 extends Module
         return $form;
     }
     
-    private function getProductAdminHookContent(HookFormInterface $hookForm, array $params)
+    private function getProductAdminHookContent(HookFieldsBuilderInterface $hookForm, array $params)
     {
         $productFieldsDatas = [];
         $idProduct = $params['id_product'];

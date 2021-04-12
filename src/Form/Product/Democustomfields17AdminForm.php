@@ -7,7 +7,7 @@ use PrestaShopBundle\Form\Admin\Type\CommonAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Module;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFormInterface;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
 
 class Democustomfields17AdminForm extends CommonAbstractType
 {
@@ -17,7 +17,7 @@ class Democustomfields17AdminForm extends CommonAbstractType
     }
     
     private function addFieldsByHook(
-        HookFormInterface $hookForm,
+        HookFieldsBuilderInterface $hookForm,
         FormBuilderInterface $builder,
         Module $module
     ) {
