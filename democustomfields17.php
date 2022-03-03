@@ -7,15 +7,8 @@ if (!defined('_PS_VERSION_')) {
 require_once __DIR__.'/vendor/autoload.php';
 
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsExtraFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepLeftColumnBottomFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsMainStepRightColumnBottomFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsQuantitiesStepBottomFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsPriceStepBottomFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsOptionsStepTopFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsOptionsStepBottomFieldsBuilder;
-use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookDisplayAdminProductsSeoStepBottomFieldsBuilder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderFinder;
+use PrestaShop\Module\Democustomfields17\Form\Product\Democustomfields17AdminForm;
 use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 
 class Democustomfields17 extends Module
@@ -58,50 +51,13 @@ class Democustomfields17 extends Module
 
         return parent::uninstall();
     }
-    
-    public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepLeftColumnMiddleFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsExtra($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsExtraFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsMainStepLeftColumnBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepLeftColumnBottomFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsMainStepRightColumnBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsMainStepRightColumnBottomFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsQuantitiesStepBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsQuantitiesStepBottomFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsPriceStepBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsPriceStepBottomFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsOptionsStepBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsOptionsStepBottomFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsOptionsStepTop($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsOptionsStepTopFieldsBuilder()), $params);
-    }
-    
-    public function hookDisplayAdminProductsSeoStepBottom($params)
-    {
-        return $this->displayProductAdminHookFields((new HookDisplayAdminProductsSeoStepBottomFieldsBuilder()), $params);
+
+    public function __call($hookName, $params) {
+        $hookFieldsBuilder = (new HookFieldsBuilderFinder())->find($hookName);
+
+        if (null != $hookFieldsBuilder){
+            return $this->displayProductAdminHookFields($hookFieldsBuilder, $params);
+        }
     }
     
     public function hookActionAdminProductsControllerSaveAfter($params)
@@ -145,14 +101,7 @@ class Democustomfields17 extends Module
             'module' => $this,
         ];
 
-        $form = $formFactory->createNamed(
-            $this->name,
-            'PrestaShop\Module\Democustomfields17\Form\Product\Democustomfields17AdminForm',
-            $datas,
-            $options
-        );
-
-        return $form;
+        return $formFactory->createNamed($this->name, Democustomfields17AdminForm::class, $datas, $options);
     }
     
     private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
