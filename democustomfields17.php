@@ -9,6 +9,7 @@ require_once __DIR__.'/vendor/autoload.php';
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInterface;
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderFinder;
 use PrestaShop\Module\Democustomfields17\Form\Product\Democustomfields17AdminForm;
+use PrestaShop\Module\Democustomfields17\Form\Product\ProductFormDataHandler;
 use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 
 class Democustomfields17 extends Module
@@ -63,22 +64,16 @@ class Democustomfields17 extends Module
     public function hookActionAdminProductsControllerSaveAfter($params)
     {
         $data = Tools::getValue($this->name);
-        $idProduct = (int) Tools::getValue('id_product');
-                        
-        if (!is_array($data)
-        || !isset($data[$this->getModuleFormDatasID()])) { // Make sure datas come form this form
-            return;
-        }
-        
-        $productObject = new Product($idProduct);
 
-        if (!Validate::isLoadedObject($productObject)) {
+        if (!is_array($data) || !isset($data[$this->getModuleFormDatasID()])) { // Make sure data come from this form
             return;
         }
-        
-        die(var_dump($data));
-        
-        // TODO : play with $data and $productObject ;)
+
+        if(!isset($data['id_product'])) {
+            $data['id_product'] = (int) Tools::getValue('id_product');
+        }
+
+        $formHandler = (new ProductFormDataHandler())->save($data);
     }
     
     public function symfonyContainerInstance()
