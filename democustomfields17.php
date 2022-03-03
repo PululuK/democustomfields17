@@ -101,17 +101,9 @@ class Democustomfields17 extends Module
     
     private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
     {
-        $productFieldsDatas = [];
-        $idProduct = $params['id_product'];
+        $productFieldsData = (new ProductFormDataHandler())->getData($params);
 
-        /* Todo : You have $idProduct ... load product datas :)
-         *
-         *  1 - My data system get product custom fields values by $idProduct
-         *  2 - $productFieldsDatas['My_product_customfield_name'] = 'My_product_custom_field_value';
-         *
-         * */
-
-        $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsDatas);
+        $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsData);
         
         return $this->symfonyContainerInstance()
             ->get('twig')

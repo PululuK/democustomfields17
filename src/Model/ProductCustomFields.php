@@ -1,6 +1,6 @@
 <?php
 
-use PrestaShop\Module\Democustomfields17\Form;
+namespace PrestaShop\Module\Democustomfields17\Model;
 
 use ObjectModel;
 use DbQuery;
@@ -25,8 +25,6 @@ class ProductCustomFields extends ObjectModel {
     public static $definition = [
         'table' => 'democustomfields17',
         'primary' => 'id_democustomfields17',
-        'multilang' => true,
-        'multilang_shop' => true,
         'fields' => [
             'id_product' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId'],
             'date_add' => ['type' => self::TYPE_DATE, 'validate' => 'isDate'],
