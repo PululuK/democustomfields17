@@ -217,3 +217,15 @@ BO > Product
 
 ![image](https://user-images.githubusercontent.com/16455155/113608216-8e0e9a00-964a-11eb-98f7-40da7de66953.png)
 
+
+FO
+
+```twig
+{$product.democustomfields17.my_text_field_example}
+{$product.democustomfields17.my_translatable_text_field_example }
+{$product.democustomfields17.my_switch_field_example}
+```
+
+
+
+
