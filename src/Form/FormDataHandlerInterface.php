@@ -2,7 +2,6 @@
 
 namespace PrestaShop\Module\Democustomfields17\Form;
 
-
 interface FormDataHandlerInterface
 {
     /*

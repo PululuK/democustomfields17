@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PrestaShop\Module\Democustomfields17\Form\Product;
 
 use PrestaShopBundle\Form\Admin\Type\CommonAbstractType;
