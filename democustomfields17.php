@@ -87,7 +87,7 @@ class Democustomfields17 extends Module
         return $this->symfonyInstance;
     }
     
-    private function getProductAdminHookFieldsDefinition(HookFieldsBuilderInterface $hookFieldsBuilder, array $datas)
+    private function getProductAdminHookFieldsDefinition(HookFieldsBuilderInterface $hookFieldsBuilder, array $data)
     {
         $formFactory = $this->symfonyContainerInstance()->get('form.factory');
         $options = [
@@ -96,15 +96,14 @@ class Democustomfields17 extends Module
             'module' => $this,
         ];
 
-        return $formFactory->createNamed($this->name, Democustomfields17AdminForm::class, $datas, $options);
+        return $formFactory->createNamed($this->name, Democustomfields17AdminForm::class, $data, $options);
     }
     
     private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
     {
         $productFieldsData = (new ProductFormDataHandler())->getData($params);
-
         $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsData);
-        
+
         return $this->symfonyContainerInstance()
             ->get('twig')
             ->render('@PrestaShop/'.$this->name.'/admin/product/customfields.html.twig', [

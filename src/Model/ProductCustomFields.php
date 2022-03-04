@@ -13,6 +13,15 @@ class ProductCustomFields extends ObjectModel {
     /** @var int product ID */
     public $id_product;
 
+    /** @var string  */
+    public $my_text_field_example;
+
+    /** @var string  */
+    public $my_translatable_text_field_example;
+
+    /** @var bool  */
+    public $my_switch_field_example;
+
     /** @var string Object creation date */
     public $date_add;
 
@@ -25,10 +34,34 @@ class ProductCustomFields extends ObjectModel {
     public static $definition = [
         'table' => 'democustomfields17',
         'primary' => 'id_democustomfields17',
+        'multilang' => true,
+        'multilang_shop' => true,
         'fields' => [
-            'id_product' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId'],
-            'date_add' => ['type' => self::TYPE_DATE, 'validate' => 'isDate'],
-            'date_upd' => ['type' => self::TYPE_DATE, 'validate' => 'isDate'],
+            'id_product' => [
+                'type' => self::TYPE_INT,
+                'validate' => 'isUnsignedId'
+            ],
+            'my_text_field_example' => [
+                'type' => self::TYPE_HTML,
+                'validate' => 'isCleanHtml'
+            ],
+            'my_translatable_text_field_example' => [
+                'type' => self::TYPE_HTML,
+                'lang' => true,
+                'shop' => true,
+                'validate' => 'isCleanHtml'
+            ],
+            'my_switch_field_example' => [
+                'type' => self::TYPE_BOOL
+            ],
+            'date_add' => [
+                'type' => self::TYPE_DATE,
+                'validate' => 'isDate'
+            ],
+            'date_upd' => [
+                'type' => self::TYPE_DATE,
+                'validate' => 'isDate'
+            ],
         ],
     ];
 
