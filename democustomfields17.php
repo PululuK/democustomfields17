@@ -15,6 +15,7 @@ use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 class Democustomfields17 extends Module
 {
     private $symfonyInstance = null;
+    private $productFormDataHandler;
         
     public function __construct()
     {
@@ -32,6 +33,7 @@ class Democustomfields17 extends Module
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall my module?');
 
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+        $this->productFormDataHandler = new ProductFormDataHandler();
     }
     
     public function isUsingNewTranslationSystem()
@@ -60,6 +62,19 @@ class Democustomfields17 extends Module
             return $this->displayProductAdminHookFields($hookFieldsBuilder, $params);
         }
     }
+
+    public function hookActionGetProductPropertiesAfter($params)
+    {
+        $productCustomsData = $this->productFormDataHandler->getData(
+            [
+                'id_product' => (int) $params['product']['id_product'],
+                'id_lang' => $this->context->language->id,
+                'id_shop' => $this->context->shop->id
+            ]
+        );
+
+        $params['product'][$this->name] = $productCustomsData;
+    }
     
     public function hookActionAdminProductsControllerSaveAfter($params)
     {
@@ -73,7 +88,7 @@ class Democustomfields17 extends Module
             $data['id_product'] = (int) Tools::getValue('id_product');
         }
 
-        $formHandler = (new ProductFormDataHandler())->save($data);
+        $this->productFormDataHandler->save($data);
     }
     
     public function symfonyContainerInstance()
@@ -101,7 +116,13 @@ class Democustomfields17 extends Module
     
     private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
     {
-        $productFieldsData = (new ProductFormDataHandler())->getData($params);
+        if (!isset($params['id_product'])){
+            $requestStack = $this->symfonyContainerInstance()->get('request_stack');
+            $request = $requestStack->getCurrentRequest();
+            $params['id_product'] = (int) $request->attributes->get('id');
+        }
+
+        $productFieldsData = $this->productFormDataHandler->getData($params);
         $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsData);
 
         return $this->symfonyContainerInstance()
@@ -126,6 +147,7 @@ class Democustomfields17 extends Module
             'displayAdminProductsSeoStepBottom',
             'actionAdminProductsControllerSaveAfter',
             'actionObjectProductDeleteAfter',
+            'actionGetProductPropertiesAfter'
         ];
     }
     
