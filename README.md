@@ -146,6 +146,9 @@ final class ProductFormDataHandler implements FormDataHandlerInterface
 
 - 4 : Acces your data in Front
 
+```{$product.democustomfields17.YOUR_FIELD_NAME_HERE}```
+
+Ex.: 
 
 ```smarty
 {$product.democustomfields17.my_text_field_example}
