@@ -10,11 +10,9 @@ use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderInt
 use PrestaShop\Module\Democustomfields17\Form\Product\Hooks\HookFieldsBuilderFinder;
 use PrestaShop\Module\Democustomfields17\Form\Product\Democustomfields17AdminForm;
 use PrestaShop\Module\Democustomfields17\Form\Product\ProductFormDataHandler;
-use PrestaShop\PrestaShop\Adapter\SymfonyContainer;
 
 class Democustomfields17 extends Module
 {
-    private $symfonyInstance = null;
     private $productFormDataHandler;
         
     public function __construct()
@@ -90,21 +88,10 @@ class Democustomfields17 extends Module
 
         $this->productFormDataHandler->save($data);
     }
-    
-    public function symfonyContainerInstance()
-    {
-        if (null != $this->symfonyInstance) {
-            return $this->symfonyInstance;
-        }
-        
-        $this->symfonyInstance = SymfonyContainer::getInstance();
-        
-        return $this->symfonyInstance;
-    }
-    
+
     private function getProductAdminHookFieldsDefinition(HookFieldsBuilderInterface $hookFieldsBuilder, array $data)
     {
-        $formFactory = $this->symfonyContainerInstance()->get('form.factory');
+        $formFactory = $this->get('form.factory');
         $options = [
             'csrf_protection' => false,
             'hookFieldsBuilder' => $hookFieldsBuilder,
@@ -117,7 +104,7 @@ class Democustomfields17 extends Module
     private function displayProductAdminHookFields(HookFieldsBuilderInterface $hookFieldsBuilder, array $params)
     {
         if (!isset($params['id_product'])){
-            $requestStack = $this->symfonyContainerInstance()->get('request_stack');
+            $requestStack = $this->get('request_stack');
             $request = $requestStack->getCurrentRequest();
             $params['id_product'] = (int) $request->attributes->get('id');
         }
@@ -125,8 +112,7 @@ class Democustomfields17 extends Module
         $productFieldsData = $this->productFormDataHandler->getData($params);
         $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsData);
 
-        return $this->symfonyContainerInstance()
-            ->get('twig')
+        return $this->get('twig')
             ->render('@PrestaShop/'.$this->name.'/admin/product/customfields.html.twig', [
                 'form' => $form->createView(),
             ]);
@@ -153,8 +139,7 @@ class Democustomfields17 extends Module
     
     public function getLocales()
     {
-        $sfContainer = $this->symfonyContainerInstance();
-        return $sfContainer->get('prestashop.adapter.data_provider.language')->getLanguages();
+        return $this->get('prestashop.adapter.data_provider.language')->getLanguages();
     }
     
     public function getModuleFormDatasID()
