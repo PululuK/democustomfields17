@@ -1,6 +1,6 @@
 <?php
 
-$sql = array();
+$sql = [];
 
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'democustomfields17` (
     `id_democustomfields17` int(11) NOT NULL AUTO_INCREMENT,
