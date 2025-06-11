@@ -112,8 +112,10 @@ class Democustomfields17 extends Module
         $productFieldsData = $this->productFormDataHandler->getData($params);
         $form = $this->getProductAdminHookFieldsDefinition($hookFieldsBuilder, $productFieldsData);
 
-        return $this->get('twig')
-            ->render('@PrestaShop/'.$this->name.'/admin/product/customfields.html.twig', [
+        /** @var EngineInterface $twig */
+        $twig = $this->get('twig');
+
+        return $twig->render('@Modules/'.$this->name.'/views/templates/admin/product/customfields.html.twig', [
                 'form' => $form->createView(),
             ]);
     }
